@@ -1,43 +1,41 @@
 #include "Customer.h"
 
-// Конструктор за замовчуванням
-Customer::Customer() : id(0), lastName(""), firstName(""), middleName(""), address(""), creditCardNumber(""), accountBalance(0.0) {}
-
-// Конструктор з параметрами
-Customer::Customer(int customerId, const std::string& customerLastName, const std::string& customerFirstName,
-    const std::string& customerMiddleName, const std::string& customerAddress,
-    const std::string& customerCreditCardNumber, double customerAccountBalance)
-    : id(customerId), lastName(customerLastName), firstName(customerFirstName),
-    middleName(customerMiddleName), address(customerAddress),
-    creditCardNumber(customerCreditCardNumber), accountBalance(customerAccountBalance) {}
-
-// Конструктор копіювання
-Customer::Customer(const Customer& other)
-    : id(other.id), lastName(other.lastName), firstName(other.firstName),
-    middleName(other.middleName), address(other.address),
-    creditCardNumber(other.creditCardNumber), accountBalance(other.accountBalance) {}
-
-// Деструктор
-Customer::~Customer() {
-    std::cout << "Об'єкт з ID " << id << " видалено\n";
+void Customer::input() {
+    cout << "Input customer ID: "; cin >> this->id;
+    cout << "Input customer surname: "; cin >> this->surname;
+    cout << "Input customer first name: "; cin >> this->firstName;
+    cout << "Input customer patronymic: "; cin >> this->patronymic;
+    cout << "Input customer address: "; cin >> this->address;
+    cout << "Input customer credit card number: "; cin >> this->creditCardNumber;
+    cout << "Input customer account balance: "; cin >> this->accountBalance;
 }
 
-// Метод для виведення інформації про клієнта
-void Customer::displayInfo() {
-    std::cout << "ID: " << id << "\n";
-    std::cout << "Прізвище: " << lastName << "\n";
-    std::cout << "Ім'я: " << firstName << "\n";
-    std::cout << "По батькові: " << middleName << "\n";
-    std::cout << "Адреса: " << address << "\n";
-    std::cout << "Номер кредитної картки: " << creditCardNumber << "\n";
-    std::cout << "Баланс рахунку: " << accountBalance << "\n";
-
-    this->id = car.id;
-    this->model = car.model; this->price = car.price;
-    this->registrationNumber = car.registrationNumber; this->vinCode = car.vinCode;
-    this->numberOfSeats = car.numberOfSeats; this->numberOfDoors = car.numberOfDoors;
+void Customer::output() {
+    cout << "Customer ID: " << this->id << endl;
+    cout << "Customer surname: " << this->surname << endl;
+    cout << "Customer first name: " << this->firstName << endl;
+    cout << "Customer patronymic: " << this->patronymic << endl;
+    cout << "Customer address: " << this->address << endl;
+    cout << "Customer credit card number: " << this->creditCardNumber << endl;
+    cout << "Customer account balance: " << this->accountBalance << endl;
 }
 
-Car::~Car()
-{
+istream& operator>>(istream& in, Customer& customer) {
+    customer.input();
+    return in;
+}
+
+ostream& operator<<(ostream& out, Customer& customer) {
+    customer.output();
+    return out;
+}
+
+bool Customer::operator==(const Customer& other) const {
+    return id == other.id &&
+        surname == other.surname &&
+        firstName == other.firstName &&
+        patronymic == other.patronymic &&
+        address == other.address &&
+        creditCardNumber == other.creditCardNumber &&
+        accountBalance == other.accountBalance;
 }

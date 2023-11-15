@@ -1,40 +1,45 @@
-
-#ifndef CUSTOMER_H
-#define CUSTOMER_H
-
+#pragma once
 #include <iostream>
-#include <string>
 
-    class Customer {
-    private:
-        int id;
-        std::string lastName;
-        std::string firstName;
-        std::string middleName;
-        std::string address;
-        std::string creditCardNumber;
-        double accountBalance;
+using namespace std;
 
-    public:
-        // Конструктор за замовчуванням
-        Customer();
+class Customer {
+private:
+    int id;
+    string surname;
+    string firstName;
+    string patronymic;
+    string address;
+    string creditCardNumber;
+    double accountBalance;
 
-        // Конструктор з параметрами
-        Customer(int customerId, const std::string& customerLastName, const std::string& customerFirstName,
-            const std::string& customerMiddleName, const std::string& customerAddress,
-            const std::string& customerCreditCardNumber, double customerAccountBalance);
+public:
+    Customer() = default;
 
-        // Конструктор копіювання
-        Customer(const Customer& other);
+    Customer(int id, const string& surname, const string& firstName, const string& patronymic, const string& address,
+        const string& creditCardNumber, double accountBalance)
+        : id(id), surname(surname), firstName(firstName), patronymic(patronymic), address(address), creditCardNumber(creditCardNumber),
+        accountBalance(accountBalance) {
+    }
 
-        // Деструктор
-        ~Customer();
+    Customer(const Customer& customer) {
+        this->id = customer.id;
+        this->surname = customer.surname;
+        this->firstName = customer.firstName;
+        this->patronymic = customer.patronymic;
+        this->address = customer.address;
+        this->creditCardNumber = customer.creditCardNumber;
+        this->accountBalance = customer.accountBalance;
+    }
 
-        // Метод для виведення інформації про клієнта
-        void displayInfo();
-    };
+    ~Customer() = default;
 
-#endif // CUSTOMER_H
+    void input();
+    void output();
 
+    friend istream& operator>>(istream& in, Customer& customer);
+    friend ostream& operator<<(ostream& out, Customer& customer);
 
+    bool operator==(const Customer& other) const;
+};
 
